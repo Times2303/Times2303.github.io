@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Para mi pincesa favorita🌹</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Great+Vibes&display=swap" rel="stylesheet">
 
@@ -15,7 +15,7 @@
             --btn-pink: #ff4d88;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
             height: 100vh;
@@ -26,153 +26,82 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            cursor: crosshair;
+            touch-action: manipulation;
         }
 
-        /* ✨ CIELO ESTRELLADO */
-        .night { position: fixed; inset: 0; z-index: -2; pointer-events: none; }
+        /* ✨ CIELO ESTRELLADO (Permanente) */
+        .night-overlay { position: fixed; inset: 0; z-index: -2; pointer-events: none; }
         .stars, .stars-2 { position: absolute; width: 1px; height: 1px; background: white; }
-        .stars { 
-            box-shadow: 200px 300px #FFF, 500px 100px #FFF, 800px 500px #FFF, 1200px 200px #FFF, 1500px 800px #FFF, 400px 600px #FFF, 700px 150px #FFF, 1100px 700px #FFF; 
-            animation: stars-blink 3s infinite ease-in-out; 
-        }
-        .stars-2 { 
-            width: 2px; height: 2px;
-            box-shadow: 350px 250px #FFF, 650px 150px #FFF, 950px 750px #FFF, 1250px 350px #FFF, 150px 850px #FFF, 850px 50px #FFF; 
-            animation: stars-blink 5s infinite ease-in-out 1s; 
-        }
+        .stars { box-shadow: 200px 300px #FFF, 500px 100px #FFF, 800px 500px #FFF, 1200px 200px #FFF, 1500px 800px #FFF, 400px 600px #FFF; animation: stars-blink 3s infinite ease-in-out; }
+        .stars-2 { width: 2px; height: 2px; box-shadow: 350px 250px #FFF, 650px 150px #FFF, 950px 750px #FFF, 150px 850px #FFF, 850px 50px #FFF; animation: stars-blink 5s infinite ease-in-out 1s; }
         @keyframes stars-blink { 0%, 100% { opacity: 0.9; } 50% { opacity: 0.1; } }
 
-        .shooting-star {
-            position: absolute; height: 2px; width: 60px;
-            background: linear-gradient(-45deg, #fff, rgba(0,0,0,0));
-            filter: drop-shadow(0 0 6px #fff);
-            animation: shooting 4s linear infinite;
-            opacity: 0;
-        }
+        .shooting-star { position: absolute; height: 2px; width: 60px; background: linear-gradient(-45deg, #fff, rgba(0,0,0,0)); filter: drop-shadow(0 0 6px #fff); animation: shooting 4s linear infinite; opacity: 0; }
         @keyframes shooting { 0% { transform: rotateZ(35deg) translateX(-200px); opacity: 0; } 5% { opacity: 1; } 25% { transform: rotateZ(35deg) translateX(800px); opacity: 0; } 100% { opacity: 0; } }
 
         /* ❤️ PANTALLA DE INICIO */
-        #intro-screen {
-            position: fixed; inset: 0; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; z-index: 10000;
-            background: inherit; transition: opacity 0.8s ease;
-        }
-        .heart-btn {
-            font-size: 80px; background: none; border: none; cursor: pointer;
-            filter: drop-shadow(0 0 10px var(--heart-glow));
-            animation: beat 1.2s infinite ease-in-out;
-            transition: filter 0.4s ease, transform 0.3s ease;
-        }
-        .heart-btn:hover { filter: drop-shadow(0 0 35px #ff4d88) drop-shadow(0 0 60px #ff0055); transform: scale(1.15); }
-        .intro-text { color: white; margin-top: 25px; font-size: 2.2vh; letter-spacing: 4px; text-transform: uppercase; opacity: 0.7; }
+        #intro-screen { position: fixed; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 10000; background: inherit; transition: opacity 0.8s ease; }
+        .heart-btn { font-size: clamp(60px, 15vw, 80px); background: none; border: none; cursor: pointer; filter: drop-shadow(0 0 10px var(--heart-glow)); animation: beat 1.2s infinite ease-in-out; transition: all 0.4s ease; }
+        .heart-btn:hover { filter: drop-shadow(0 0 40px #ff0055) drop-shadow(0 0 70px #ff4d88); transform: scale(1.15); }
+        .intro-text { color: white; margin-top: 25px; font-size: 2vh; letter-spacing: 4px; text-transform: uppercase; opacity: 0.7; }
         @keyframes beat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
 
         /* 🌹 CONTENIDO PRINCIPAL */
-        #main-content { 
-            opacity: 0; display: none; 
-            flex-direction: column; align-items: center; justify-content: center;
-            width: 100%; height: 100%; text-align: center;
-            transition: opacity 1.5s ease; 
-        }
-
-        .header-group {
-            margin-bottom: 2vh;
-            transition: opacity 1s ease, transform 1s ease;
-        }
-
-        .titulo { color: var(--text-color); font-size: 4vh; font-style: italic; text-shadow: 0 0 15px var(--pink-glow); }
-        .pregunta-valentin { color: #ffebf3; font-size: 3vh; font-style: italic; text-shadow: 0 0 10px rgba(255, 105, 180, 0.6); margin-top: 1vh; }
+        #main-content { opacity: 0; display: none; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%; text-align: center; transition: opacity 1.5s ease; }
+        .header-group { margin-bottom: 2vh; transition: opacity 1s ease; }
+        .titulo { color: var(--text-color); font-size: clamp(1.5rem, 6vw, 2.5rem); font-style: italic; text-shadow: 0 0 15px var(--pink-glow); }
+        .pregunta-valentin { color: #ffebf3; font-size: clamp(1rem, 4vw, 1.4rem); font-style: italic; text-shadow: 0 0 10px rgba(255, 105, 180, 0.6); }
         
         /* LA ROSA */
-        .flower-container {
-            position: relative;
-            transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 5;
-        }
-        .imagen { 
-            height: 40vh; 
-            filter: drop-shadow(0 0 25px rgba(255, 0, 85, 0.3)); 
-            transition: height 1.5s ease;
-        }
+        .flower-container { position: relative; transition: transform 2s ease; z-index: 5; }
+        .imagen { height: clamp(25vh, 38vh, 40vh); filter: drop-shadow(0 0 25px rgba(255, 0, 85, 0.3)); transition: all 2s ease; }
 
-        .footer-group {
-            display: flex; flex-direction: column; align-items: center;
-            transition: opacity 1s ease, transform 1s ease;
-        }
-
-        #frase { font-family: 'Great Vibes', cursive; color: #ffebf3; font-size: 4.5vh; text-shadow: 0 0 10px rgba(255, 105, 180, 0.8); margin-top: 3vh; min-height: 60px; }
+        #mensajeFinal { position: absolute; top: -12vh; width: 100%; font-family: 'Great Vibes', cursive; font-size: clamp(2.5rem, 10vw, 4.5rem); color: white; text-shadow: 0 0 20px #fff; opacity: 0; transform: translateY(20px); transition: all 2s ease; pointer-events: none; }
 
         /* 🔘 BOTONES */
-        .botones-container { display: flex; gap: 30px; margin-top: 3vh; z-index: 100; }
-        .btn-val {
-            padding: 12px 35px; border-radius: 50px; border: 1.5px solid white;
-            background: transparent; color: white; cursor: pointer;
-            font-family: 'Playfair Display', serif; font-size: 2vh;
-            transition: all 0.3s ease;
-        }
+        .footer-group { display: flex; flex-direction: column; align-items: center; transition: opacity 1s ease; }
+        .botones-container { display: flex; gap: 20px; margin-top: 2vh; z-index: 100; }
+        .btn-val { padding: 10px 25px; border-radius: 50px; border: 1.5px solid white; background: transparent; color: white; font-family: 'Playfair Display', serif; font-size: 1rem; transition: all 0.3s ease; cursor: pointer; }
         .btn-si { background: rgba(255, 77, 136, 0.2); box-shadow: 0 0 10px var(--pink-glow); }
         .btn-si:hover { background: var(--btn-pink); box-shadow: 0 0 25px var(--btn-pink); transform: scale(1.1); }
         .btn-no { position: relative; transition: opacity 0.3s ease; }
         .btn-no.escape { opacity: 0; pointer-events: none; }
+        #frase { font-family: 'Great Vibes', cursive; color: #ffebf3; font-size: clamp(1.5rem, 7vw, 2.8rem); text-shadow: 0 0 10px rgba(255, 105, 180, 0.8); margin-top: 2vh; min-height: 50px; transition: opacity 0.6s ease; }
 
-        /* 👑 ESTILO PALABRA CLICK */
-        .click-text {
-            position: absolute;
-            pointer-events: none;
-            font-family: 'Great Vibes', cursive;
-            color: #fff;
-            font-size: 3.5vh;
-            text-shadow: 0 0 10px #ff0073, 0 0 20px #ff0073;
-            animation: fadeUp 1.5s forwards;
-            z-index: 9999;
-        }
-
-        @keyframes fadeUp {
-            0% { opacity: 0; transform: translate(-50%, 0); }
-            20% { opacity: 1; }
-            100% { opacity: 0; transform: translate(-50%, -50px); }
-        }
+        /* 👑 PALABRA CLICK */
+        .click-text { position: absolute; pointer-events: none; font-family: 'Great Vibes', cursive; color: #fff; font-size: 2.5rem; text-shadow: 0 0 10px #ff0073; animation: fadeUp 1.5s forwards; z-index: 9999; }
+        @keyframes fadeUp { 0% { opacity: 0; transform: translate(-50%, 0); } 20% { opacity: 1; } 100% { opacity: 0; transform: translate(-50%, -50px); } }
 
         /* ESTADO FINAL */
-        .accepted .header-group, .accepted .footer-group {
-            opacity: 0;
-            transform: scale(0.8);
-            pointer-events: none;
-        }
-        .accepted .imagen {
-            height: 70vh;
-            filter: drop-shadow(0 0 50px rgba(255, 0, 85, 0.6));
-        }
-        .accepted .flower-container {
-            transform: translateY(0);
-        }
+        .accepted .header-group, .accepted .footer-group { opacity: 0; pointer-events: none; }
+        .accepted .imagen { height: 62vh; filter: drop-shadow(0 0 50px rgba(255, 255, 255, 0.6)); }
+        .accepted #mensajeFinal { opacity: 1; transform: translateY(0); }
     </style>
 </head>
 
 <body onclick="spawnText(event)">
-    <div class="night">
+    <div class="night-overlay">
         <div class="stars"></div><div class="stars-2"></div>
-        <div class="shooting-star" style="top: 10%; left: 5%;"></div>
-        <div class="shooting-star" style="top: 40%; left: 60%; animation-delay: 2s;"></div>
+        <div class="shooting-star" style="top: 15%; left: 10%;"></div>
+        <div class="shooting-star" style="top: 40%; left: 70%; animation-delay: 2s;"></div>
     </div>
 
     <div id="intro-screen">
         <button class="heart-btn" id="startBtn">❤️</button>
-        <p class="intro-text">San Valentín</p>
+        <p class="intro-text">Toca el corazón</p>
     </div>
 
     <div id="main-content">
-        <div class="header-group" id="headerGroup">
+        <div class="header-group">
             <h1 class="titulo">Para la pincesa... ❤️</h1>
             <p class="pregunta-valentin">¿Quieres ser mi Valentín?</p>
         </div>
         
-        <div class="flower-container" id="flowerCont">
+        <div class="flower-container">
             <img class="imagen" id="rosaImg" src="https://i.pinimg.com/originals/4d/80/56/4d80564c89721f9a75cd1df36e42a467.gif">
         </div>
 
-        <div class="footer-group" id="footerGroup">
+        <div class="footer-group">
             <div class="botones-container">
                 <button class="btn-val btn-si" id="btnSi">Sí quiero</button>
                 <button class="btn-val btn-no" id="btnNo">No</button>
@@ -180,7 +109,7 @@
             <h2 id="frase"></h2>
         </div>
 
-        <audio id="musica" src="https://files.catbox.moe/clrk20.mp3" loop></audio>
+        <audio id="musica" src="https://files.catbox.moe/clrk20.mp3" preload="auto" loop></audio>
     </div>
 
     <script>
@@ -192,18 +121,12 @@
         const btnNo = document.getElementById('btnNo');
         const btnSi = document.getElementById('btnSi');
 
-        const frases = [
-            "Tu sonrisa es mi cielo ✨",
-            "Eres el regalo más lindo de mi vida 🌌",
-            "Mi lugar favorito es a tu lado 💕",
-            "Te quiero más de lo que imaginas 💞",
-            "Gracias por existir 💘"
-        ];
+        const frases = ["Tu sonrisa es mi cielo ✨", "Eres el regalo más lindo de mi vida 🌌", "Mi lugar favorito es a tu lado 💕", "Gracias por existir 💘"];
 
         btnStart.addEventListener('click', (e) => {
             e.stopPropagation();
-            intro.style.opacity = '0';
             audio.play().catch(() => {});
+            intro.style.opacity = '0';
             setTimeout(() => {
                 intro.style.display = 'none';
                 main.style.display = 'flex';
@@ -217,40 +140,37 @@
             const text = document.createElement('div');
             text.className = 'click-text';
             text.innerText = 'pincesa';
-            text.style.left = e.clientX + 'px';
-            text.style.top = e.clientY + 'px';
+            const x = e.clientX || (e.touches ? e.touches[0].clientX : 0);
+            const y = e.clientY || (e.touches ? e.touches[0].clientY : 0);
+            text.style.left = x + 'px';
+            text.style.top = y + 'px';
             document.body.appendChild(text);
-            setTimeout(() => { text.remove(); }, 1500);
+            setTimeout(() => text.remove(), 1500);
         }
 
-        btnNo.addEventListener('mouseover', () => {
+        const escapeNo = (e) => {
+            e.preventDefault();
             btnNo.classList.add('escape');
-            setTimeout(() => { btnNo.classList.remove('escape'); }, 1500);
-        });
+            setTimeout(() => btnNo.classList.remove('escape'), 1500);
+        };
+        btnNo.addEventListener('mouseover', escapeNo);
+        btnNo.addEventListener('touchstart', escapeNo);
 
-        // DINÁMICA FINAL AL PRESIONAR SÍ + ENVÍO WHATSAPP
         btnSi.addEventListener('click', (e) => {
             e.stopPropagation();
-            
-            // 1. Activar animación visual
             main.classList.add('accepted');
             clearInterval(window.fraseInterval);
 
-            // 2. Enviar mensaje a WhatsApp
-            const numero = "51921252611"; // Formato internacional para Perú
-            const mensaje = encodeURIComponent("¡Si quiero ser tu valentin! ❤️🌹");
-            const url = `https://api.whatsapp.com/send?phone=${numero}&text=${mensaje}`;
+            const numero = "51921252611";
+            const mensaje = encodeURIComponent("¡Si quiero ser tu valentin! <3");
+            const url = `https://wa.me/${numero}?text=${mensaje}`;
             
-            // Abrir WhatsApp en una nueva pestaña después de un pequeño delay
-            setTimeout(() => {
-                window.open(url, '_blank');
-            }, 1000);
+            setTimeout(() => { window.location.href = url; }, 2000);
         });
 
         function iniciarFrases() {
             let i = 0;
             fraseEl.textContent = frases[0];
-            if(window.fraseInterval) clearInterval(window.fraseInterval);
             window.fraseInterval = setInterval(() => {
                 i = (i + 1) % frases.length;
                 fraseEl.style.opacity = 0;
