@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Para mi pincesa favorita🌹</title>
+    <title>Para mi princesa</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Great+Vibes&display=swap" rel="stylesheet">
 
     <style>
@@ -29,7 +29,6 @@
             touch-action: manipulation;
         }
 
-        /* ✨ CIELO ESTRELLADO (Permanente) */
         .night-overlay { position: fixed; inset: 0; z-index: -2; pointer-events: none; }
         .stars, .stars-2 { position: absolute; width: 1px; height: 1px; background: white; }
         .stars { box-shadow: 200px 300px #FFF, 500px 100px #FFF, 800px 500px #FFF, 1200px 200px #FFF, 1500px 800px #FFF, 400px 600px #FFF; animation: stars-blink 3s infinite ease-in-out; }
@@ -39,26 +38,20 @@
         .shooting-star { position: absolute; height: 2px; width: 60px; background: linear-gradient(-45deg, #fff, rgba(0,0,0,0)); filter: drop-shadow(0 0 6px #fff); animation: shooting 4s linear infinite; opacity: 0; }
         @keyframes shooting { 0% { transform: rotateZ(35deg) translateX(-200px); opacity: 0; } 5% { opacity: 1; } 25% { transform: rotateZ(35deg) translateX(800px); opacity: 0; } 100% { opacity: 0; } }
 
-        /* ❤️ PANTALLA DE INICIO */
         #intro-screen { position: fixed; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 10000; background: inherit; transition: opacity 0.8s ease; }
         .heart-btn { font-size: clamp(60px, 15vw, 80px); background: none; border: none; cursor: pointer; filter: drop-shadow(0 0 10px var(--heart-glow)); animation: beat 1.2s infinite ease-in-out; transition: all 0.4s ease; }
         .heart-btn:hover { filter: drop-shadow(0 0 40px #ff0055) drop-shadow(0 0 70px #ff4d88); transform: scale(1.15); }
         .intro-text { color: white; margin-top: 25px; font-size: 2vh; letter-spacing: 4px; text-transform: uppercase; opacity: 0.7; }
         @keyframes beat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
 
-        /* 🌹 CONTENIDO PRINCIPAL */
         #main-content { opacity: 0; display: none; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%; text-align: center; transition: opacity 1.5s ease; }
         .header-group { margin-bottom: 2vh; transition: opacity 1s ease; }
         .titulo { color: var(--text-color); font-size: clamp(1.5rem, 6vw, 2.5rem); font-style: italic; text-shadow: 0 0 15px var(--pink-glow); }
         .pregunta-valentin { color: #ffebf3; font-size: clamp(1rem, 4vw, 1.4rem); font-style: italic; text-shadow: 0 0 10px rgba(255, 105, 180, 0.6); }
         
-        /* LA ROSA */
         .flower-container { position: relative; transition: transform 2s ease; z-index: 5; }
         .imagen { height: clamp(25vh, 38vh, 40vh); filter: drop-shadow(0 0 25px rgba(255, 0, 85, 0.3)); transition: all 2s ease; }
 
-        #mensajeFinal { position: absolute; top: -12vh; width: 100%; font-family: 'Great Vibes', cursive; font-size: clamp(2.5rem, 10vw, 4.5rem); color: white; text-shadow: 0 0 20px #fff; opacity: 0; transform: translateY(20px); transition: all 2s ease; pointer-events: none; }
-
-        /* 🔘 BOTONES */
         .footer-group { display: flex; flex-direction: column; align-items: center; transition: opacity 1s ease; }
         .botones-container { display: flex; gap: 20px; margin-top: 2vh; z-index: 100; }
         .btn-val { padding: 10px 25px; border-radius: 50px; border: 1.5px solid white; background: transparent; color: white; font-family: 'Playfair Display', serif; font-size: 1rem; transition: all 0.3s ease; cursor: pointer; }
@@ -68,14 +61,11 @@
         .btn-no.escape { opacity: 0; pointer-events: none; }
         #frase { font-family: 'Great Vibes', cursive; color: #ffebf3; font-size: clamp(1.5rem, 7vw, 2.8rem); text-shadow: 0 0 10px rgba(255, 105, 180, 0.8); margin-top: 2vh; min-height: 50px; transition: opacity 0.6s ease; }
 
-        /* 👑 PALABRA CLICK */
         .click-text { position: absolute; pointer-events: none; font-family: 'Great Vibes', cursive; color: #fff; font-size: 2.5rem; text-shadow: 0 0 10px #ff0073; animation: fadeUp 1.5s forwards; z-index: 9999; }
         @keyframes fadeUp { 0% { opacity: 0; transform: translate(-50%, 0); } 20% { opacity: 1; } 100% { opacity: 0; transform: translate(-50%, -50px); } }
 
-        /* ESTADO FINAL */
         .accepted .header-group, .accepted .footer-group { opacity: 0; pointer-events: none; }
         .accepted .imagen { height: 62vh; filter: drop-shadow(0 0 50px rgba(255, 255, 255, 0.6)); }
-        .accepted #mensajeFinal { opacity: 1; transform: translateY(0); }
     </style>
 </head>
 
@@ -93,7 +83,7 @@
 
     <div id="main-content">
         <div class="header-group">
-            <h1 class="titulo">Para la pincesa... ❤️</h1>
+            <h1 class="titulo">Para mi princesa... ❤️</h1>
             <p class="pregunta-valentin">¿Quieres ser mi Valentín?</p>
         </div>
         
@@ -109,7 +99,7 @@
             <h2 id="frase"></h2>
         </div>
 
-        <audio id="musica" src="https://files.catbox.moe/clrk20.mp3" preload="auto" loop></audio>
+        <audio id="musica" src="https://files.catbox.moe/3uya6o.mp3" preload="auto" loop></audio>
     </div>
 
     <script>
@@ -139,7 +129,7 @@
             if (e.target.tagName === 'BUTTON') return;
             const text = document.createElement('div');
             text.className = 'click-text';
-            text.innerText = 'pincesa';
+            text.innerText = 'princesa'; // Corregido
             const x = e.clientX || (e.touches ? e.touches[0].clientX : 0);
             const y = e.clientY || (e.touches ? e.touches[0].clientY : 0);
             text.style.left = x + 'px';
@@ -162,7 +152,7 @@
             clearInterval(window.fraseInterval);
 
             const numero = "51921252611";
-            const mensaje = encodeURIComponent("¡Si quiero ser tu valentin! <3");
+            const mensaje = encodeURIComponent("¡Si quiero ser tu valentin! ❤️🌹");
             const url = `https://wa.me/${numero}?text=${mensaje}`;
             
             setTimeout(() => { window.location.href = url; }, 2000);
