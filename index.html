@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para mi persona favorita🌹</title>
+    <title>Para mi pincesa favorita🌹</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Great+Vibes&display=swap" rel="stylesheet">
 
     <style>
@@ -26,6 +26,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            cursor: crosshair; /* Cambia el cursor para invitar al click */
         }
 
         /* ✨ CIELO ESTRELLADO */
@@ -67,7 +68,7 @@
         .intro-text { color: white; margin-top: 25px; font-size: 2.2vh; letter-spacing: 4px; text-transform: uppercase; opacity: 0.7; }
         @keyframes beat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
 
-        /* 🌹 CONTENIDO PRINCIPAL CENTRADO */
+        /* 🌹 CONTENIDO PRINCIPAL */
         #main-content { 
             opacity: 0; display: none; 
             flex-direction: column; align-items: center; justify-content: center;
@@ -103,7 +104,7 @@
         #frase { font-family: 'Great Vibes', cursive; color: #ffebf3; font-size: 4.5vh; text-shadow: 0 0 10px rgba(255, 105, 180, 0.8); margin-top: 3vh; min-height: 60px; }
 
         /* 🔘 BOTONES */
-        .botones-container { display: flex; gap: 30px; margin-top: 3vh; }
+        .botones-container { display: flex; gap: 30px; margin-top: 3vh; z-index: 100; }
         .btn-val {
             padding: 12px 35px; border-radius: 50px; border: 1.5px solid white;
             background: transparent; color: white; cursor: pointer;
@@ -115,23 +116,41 @@
         .btn-no { position: relative; transition: opacity 0.3s ease; }
         .btn-no.escape { opacity: 0; pointer-events: none; }
 
-        /* ESTADO FINAL: SÍ QUIERO */
+        /* 👑 ESTILO PALABRA CLICK */
+        .click-text {
+            position: absolute;
+            pointer-events: none;
+            font-family: 'Great Vibes', cursive;
+            color: #fff;
+            font-size: 3.5vh;
+            text-shadow: 0 0 10px #ff0073, 0 0 20px #ff0073;
+            animation: fadeUp 1.5s forwards;
+            z-index: 9999;
+        }
+
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translate(-50%, 0); }
+            20% { opacity: 1; }
+            100% { opacity: 0; transform: translate(-50%, -50px); }
+        }
+
+        /* ESTADO FINAL */
         .accepted .header-group, .accepted .footer-group {
             opacity: 0;
             transform: scale(0.8);
             pointer-events: none;
         }
         .accepted .imagen {
-            height: 70vh; /* La rosa se hace gigante */
+            height: 70vh;
             filter: drop-shadow(0 0 50px rgba(255, 0, 85, 0.6));
         }
         .accepted .flower-container {
-            transform: translateY(0); /* Se centra perfectamente */
+            transform: translateY(0);
         }
     </style>
 </head>
 
-<body>
+<body onclick="spawnText(event)">
     <div class="night">
         <div class="stars"></div><div class="stars-2"></div>
         <div class="shooting-star" style="top: 10%; left: 5%;"></div>
@@ -145,7 +164,7 @@
 
     <div id="main-content">
         <div class="header-group" id="headerGroup">
-            <h1 class="titulo">Para mi persona favorita... ❤️</h1>
+            <h1 class="titulo">Para la pincesa... ❤️</h1>
             <p class="pregunta-valentin">¿Quieres ser mi Valentín?</p>
         </div>
         
@@ -181,7 +200,8 @@
             "Gracias por existir 💘"
         ];
 
-        btnStart.addEventListener('click', () => {
+        btnStart.addEventListener('click', (e) => {
+            e.stopPropagation(); // Evita que salga el texto "pincesa" justo al dar click al corazón
             intro.style.opacity = '0';
             audio.play().catch(() => {});
             setTimeout(() => {
@@ -192,15 +212,35 @@
             }, 800);
         });
 
+        // FUNCIÓN PARA APARECER "PINCESA"
+        function spawnText(e) {
+            // No creamos el texto si estamos haciendo click en los botones
+            if (e.target.tagName === 'BUTTON') return;
+
+            const text = document.createElement('div');
+            text.className = 'click-text';
+            text.innerText = 'pincesa';
+            
+            // Posicionamos el texto donde se hizo click
+            text.style.left = e.clientX + 'px';
+            text.style.top = e.clientY + 'px';
+            
+            document.body.appendChild(text);
+            
+            // Lo eliminamos después de que termine la animación
+            setTimeout(() => {
+                text.remove();
+            }, 1500);
+        }
+
         btnNo.addEventListener('mouseover', () => {
             btnNo.classList.add('escape');
             setTimeout(() => { btnNo.classList.remove('escape'); }, 1500);
         });
 
-        // DINÁMICA FINAL AL PRESIONAR SÍ
-        btnSi.addEventListener('click', () => {
+        btnSi.addEventListener('click', (e) => {
+            e.stopPropagation();
             main.classList.add('accepted');
-            // Detener cambio de frases
             clearInterval(window.fraseInterval);
         });
 
