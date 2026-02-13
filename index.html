@@ -26,7 +26,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            cursor: crosshair; /* Cambia el cursor para invitar al click */
+            cursor: crosshair;
         }
 
         /* ✨ CIELO ESTRELLADO */
@@ -201,7 +201,7 @@
         ];
 
         btnStart.addEventListener('click', (e) => {
-            e.stopPropagation(); // Evita que salga el texto "pincesa" justo al dar click al corazón
+            e.stopPropagation();
             intro.style.opacity = '0';
             audio.play().catch(() => {});
             setTimeout(() => {
@@ -212,25 +212,15 @@
             }, 800);
         });
 
-        // FUNCIÓN PARA APARECER "PINCESA"
         function spawnText(e) {
-            // No creamos el texto si estamos haciendo click en los botones
             if (e.target.tagName === 'BUTTON') return;
-
             const text = document.createElement('div');
             text.className = 'click-text';
             text.innerText = 'pincesa';
-            
-            // Posicionamos el texto donde se hizo click
             text.style.left = e.clientX + 'px';
             text.style.top = e.clientY + 'px';
-            
             document.body.appendChild(text);
-            
-            // Lo eliminamos después de que termine la animación
-            setTimeout(() => {
-                text.remove();
-            }, 1500);
+            setTimeout(() => { text.remove(); }, 1500);
         }
 
         btnNo.addEventListener('mouseover', () => {
@@ -238,10 +228,23 @@
             setTimeout(() => { btnNo.classList.remove('escape'); }, 1500);
         });
 
+        // DINÁMICA FINAL AL PRESIONAR SÍ + ENVÍO WHATSAPP
         btnSi.addEventListener('click', (e) => {
             e.stopPropagation();
+            
+            // 1. Activar animación visual
             main.classList.add('accepted');
             clearInterval(window.fraseInterval);
+
+            // 2. Enviar mensaje a WhatsApp
+            const numero = "51921252611"; // Formato internacional para Perú
+            const mensaje = encodeURIComponent("¡Si quiero ser tu valentin! ❤️🌹");
+            const url = `https://api.whatsapp.com/send?phone=${numero}&text=${mensaje}`;
+            
+            // Abrir WhatsApp en una nueva pestaña después de un pequeño delay
+            setTimeout(() => {
+                window.open(url, '_blank');
+            }, 1000);
         });
 
         function iniciarFrases() {
